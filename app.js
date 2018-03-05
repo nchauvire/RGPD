@@ -37,6 +37,8 @@ app.use(flash());
 app.use('/', index);
 app.use('/subscribe', index);
 app.use('/create', index);
+app.use('/account', index);
+app.use('/editUser', index);
 
 
 // catch 404 and forward to error handler

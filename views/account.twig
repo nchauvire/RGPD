@@ -1,0 +1,64 @@
+{% extends 'layout.twig' %}
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5"><h3>Mon Compte</h3></div>
+    </div>
+
+    <hr>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="thumbnail">
+          <img src="images/user.png">
+        </div>
+        <div class="panel">
+          <a href="#">Mes infos personnelles</a>
+          <a href="#">Mot de passe</a>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <div class="panel panel-info">
+          <div class="panel-heading">Imformations générales</div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">Nom :</div>
+                  <div class="col-md-8">{{ user.lastname }}</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">Email :</div>
+                  <div class="col-md-8">{{ user.email }}</div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="row">
+                  <div class="col-md-6">Prenom :</div>
+                  <div class="col-md-4">{{ user.firstname }}</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">Recevoir la newsletter :</div>
+                  <div class="col-md-4 text-left"><input type="checkbox" disabled></div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <a class="btn btn-info" href="/editUser"><span class="glyphicon glyphicon-edit"></span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-danger">
+          <div class="panel-heading">Mes Actions</div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <button id="delAccount" class="btn btn-danger">Supprimer mon compte</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+{% endblock %}

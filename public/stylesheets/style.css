@@ -2,3 +2,11 @@
   top: 0;
   bottom: auto;
 }
+
+.navbar{
+  border-radius: 0px!important;
+}
+
+.swal-wide{
+  width:850px !important;
+}

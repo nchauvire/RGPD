@@ -1,5 +1,4 @@
 {% extends 'layout.twig' %}
-{% include 'components/header.html.twig' %}
 {% block body %}
    <div class="row">
        <div class="col-lg-offset-3 col-lg-6">
@@ -11,11 +10,11 @@
            {% endif %}
            <form action="/create" method="POST" class="form">
                <div class="form-group">
-                   <label for="">FirstName</label>
+                   <label for="">Prénom</label>
                    <input type="text" class="form-control" name="firstname">
                </div>
                <div class="form-group">
-                   <label for="">LastNAme</label>
+                   <label for="">Nom</label>
                    <input type="text" class="form-control" name="lastname">
                </div>
                <div class="form-group">
@@ -23,11 +22,11 @@
                    <input type="text" class="form-control" name="email">
                </div>
                <div class="form-group">
-                   <label for="">Password</label>
+                   <label for="">Mot de passe</label>
                    <input type="text" class="form-control" name="password">
                </div>
                <div class="form-group">
-                   <label for="">Repeat Password</label>
+                   <label for="">Répéter mot de passe</label>
                    <input type="text" class="form-control" name="confirm">
                </div>
                <div class="form-group">

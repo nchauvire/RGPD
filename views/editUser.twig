@@ -1,0 +1,39 @@
+{% extends 'layout.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ title }}</h1>
+              {% if messages.error %}
+                  <div class="alert alert-danger">
+                    {{ messages.error }}
+                  </div>
+              {% endif %}
+                <form action="/create" method="POST" class="form">
+                    <div class="form-group">
+                        <label for="">Prénom</label>
+                        <input type="text" class="form-control" value="{{ user.firstname }}" name="firstname">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nom</label>
+                        <input type="text" class="form-control" value="{{ user.lastname }}" name="lastname">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="text" class="form-control" value="{{ user.email }}" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="">
+                            <input type="checkbox"  value="{{ user.newsletter }}" name="newsletter"/>
+                            Abonné à la newsletter
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+   </div>
+{% endblock %}
