@@ -6,10 +6,13 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "app": "^0.1.0",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.15.5",
+    "express-flash": "0.0.2",
+    "express-session": "^1.15.6",
     "mongodb": "^3.0.3",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5",
