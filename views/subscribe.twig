@@ -1,0 +1,34 @@
+{% extends 'layout.twig' %}
+{% include 'components/header.html.twig' %}
+{% block body %}
+   <div class="row">
+       <div class="col-lg-offset-3 col-lg-6">
+           <h1>{{ title }}</h1>
+           <form action="/create" method="POST" class="form">
+               <div class="form-group">
+                   <label for="">FirstName</label>
+                   <input type="text" class="form-control" name="firstname">
+               </div>
+               <div class="form-group">
+                   <label for="">LastNAme</label>
+                   <input type="text" class="form-control" name="lastname">
+               </div>
+               <div class="form-group">
+                   <label for="">Email</label>
+                   <input type="text" class="form-control" name="email">
+               </div>
+               <div class="form-group">
+                   <label for="">Password</label>
+                   <input type="text" class="form-control" name="password">
+               </div>
+               <div class="form-group">
+                   <label for="">Repeat Password</label>
+                   <input type="text" class="form-control" name="repeatPassword">
+               </div>
+               <div class="form-group">
+                   <button type="submit" class="btn btn-primary">S'inscrire</button>
+               </div>
+           </form>
+       </div>
+   </div>
+{% endblock %}
