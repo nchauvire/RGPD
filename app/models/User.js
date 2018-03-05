@@ -2,34 +2,40 @@ var MongoClient = require('mongodb').MongoClient,
     ObjectID    = require('mongodb').ObjectID,
     _           = require('underscore');
 
-class User {
+module.exports = class User {
     constructor(obj)
     {
-        this._id       = null;
-        this.name      = null;
-        this.firstname = null;
-        this.email     = null;
-        this.password  = null;
+        this._id        = null;
+        this.firstname  = null;
+        this.lastname   = null;
+        this.email      = null;
+        this.password   = null;
+        this.newsletter = false;
 
-        for (var fld in obj) {
-            if (obj.hasOwnProperty(fld)) {
-                this[fld] = obj[fld];
+        this.init(obj);
+    }
+
+    init(obj)
+    {
+        for (let attr in obj) {
+            if (obj.hasOwnProperty(attr)) {
+                this[attr] = obj[attr];
             }
         }
     }
 
-    save()
+    save(callback)
     {
-        MongoClient.connect('mongodb://localhost/rgpd', function(err, db) {
-
+        MongoClient.connect('mongodb://localhost', (err, client) => {
             if (err) {
                 return console.log(err);
             }
 
-            var collection = db.collection('users');
+            let collection = client.db('rgpd').collection('users');
 
+            console.log(this);
             if (! this._id) {
-                collection.insert(this, {w : 1}, function(err, result) {
+                collection.insert(this, {w : 1}, (err, result) => {
                     this.init(result.ops[0]);
 
                     if (_.isFunction(callback)) {
@@ -37,7 +43,7 @@ class User {
                     }
                 });
             } else {
-                collection.save(this, {w : 1}, function(err, result) {
+                collection.save(this, {w : 1}, (err, result) => {
                     this.init(result.ops);
 
                     if (_.isFunction(callback)) {
@@ -50,12 +56,12 @@ class User {
 
     remove()
     {
-        MongoClient.connect('mongodb://localhost/rgpd', function(err, db) {
+        MongoClient.connect('mongodb://localhost/rgpd', (err, db) => {
             if (err) {
                 return console.log(err);
             }
 
-            var collection = db.collection('users');
+            var collection = client.db('rgpd').collection('users');
 
             collection.remove({ _id : this._id }, {w : 1}, function(err, result) {});
         });
@@ -70,21 +76,19 @@ class User {
 
     static login(email, password, callback)
     {
-        MongoClient.connect('mongodb://localhost/rgpd', function(err, db) {
+        MongoClient.connect('mongodb://localhost/rgpd', (err, db) => {
 
             if (err) {
                 return console.log(err);
             }
 
-            var users = db.collection('users');
+            var users = client.db('rgpd').collection('users');
 
-            users.findOne({email:email, password:password}, function(err, item) {
+            users.findOne({email:email, password:password}, (err, item) => {
                 var user = {}
 
                 if (! err && item) {
-
-                    user = new User();
-                    user.init(item);
+                    user = new User(item);
                 }
 
                 callback(user, err);
@@ -95,25 +99,20 @@ class User {
 
     static findById(id, callback)
     {
-        MongoClient.connect('mongodb://localhost/rgpd', function(err, db) {
+        MongoClient.connect('mongodb://localhost/rgpd', (err, db) => {
             if (err) {
                 return console.log(err);
             }
 
-            var collection = db.collection('users'),
+            var collection = client.db('rgpd').collection('users'),
                 obj_id = new ObjectID.createFromHexString(id);
 
-            collection.findOne({_id:obj_id}, function(err, item) {
-                var user = new User();
-                user.init(item);
+            collection.findOne({_id:obj_id}, (err, item) => {
+                var user = new User(item);
 
                 callback(user);
             });
         });
     }
-
-
-
 }
 
-module.exports = User;
