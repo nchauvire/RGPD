@@ -1,3 +1,7 @@
+var MongoClient = require('mongodb').MongoClient,
+    ObjectID    = require('mongodb').ObjectID,
+    _           = require('underscore');
+
 class User {
     constructor(obj)
     {
@@ -16,7 +20,7 @@ class User {
 
     save()
     {
-        MongoClient.connect('mongodb://localhost/booking', function(err, db) {
+        MongoClient.connect('mongodb://localhost/rgpd', function(err, db) {
 
             if (err) {
                 return console.log(err);
@@ -46,7 +50,7 @@ class User {
 
     remove()
     {
-        MongoClient.connect('mongodb://localhost/booking', function(err, db) {
+        MongoClient.connect('mongodb://localhost/rgpd', function(err, db) {
             if (err) {
                 return console.log(err);
             }
@@ -59,7 +63,7 @@ class User {
 
     static login(email, password, callback)
     {
-        MongoClient.connect('mongodb://localhost/booking', function(err, db) {
+        MongoClient.connect('mongodb://localhost/rgpd', function(err, db) {
 
             if (err) {
                 return console.log(err);
@@ -84,7 +88,7 @@ class User {
 
     static findById(id, callback)
     {
-        MongoClient.connect('mongodb://localhost/booking', function(err, db) {
+        MongoClient.connect('mongodb://localhost/rgpd', function(err, db) {
             if (err) {
                 return console.log(err);
             }
