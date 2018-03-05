@@ -38,7 +38,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-6">Recevoir la newsletter :</div>
-                  <div class="col-md-4 text-left"><input type="checkbox" disabled></div>
+                  <div class="col-md-4 text-left"><input type="checkbox" {% if user.newsletter %} checked {% endif %} disabled></div>
                 </div>
               </div>
               <div class="col-md-1">
