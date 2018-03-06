@@ -37,6 +37,14 @@ router.get('/subscribe', (req, res, next) => {
     });
   });
 
+router.get('/password', (req, res, next) => {
+    res.render('password', {title: 'Mot de passe oublier'});
+});
+router.post('/password', (req, res, next) => {
+    alert('ici')
+});
+
+
 // ACCOUNT AND USER
 router.get('/account', (req, res, next) => {
   const session = req.session;
