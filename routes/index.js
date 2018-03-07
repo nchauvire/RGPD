@@ -29,6 +29,10 @@ router.get('/subscribe', (req, res, next) => {
     user.save(function (savedUser, err) {
       if (!err) {
         req.flash('success', 'Vous vous êtes bien enregistré');
+        let session = req.session;
+        session.auth = true;
+        session.user = user;
+        session.save();
         res.redirect('/');
       } else {
         req.flash('error', 'Une erreur est survenue, veuillez contacter sur support');
