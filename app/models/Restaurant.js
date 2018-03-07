@@ -26,6 +26,7 @@ module.exports = class Restaurant {
 
                 data.forEach(function(element) {
                     let restaurant = new Restaurant();
+                    restaurant._id = element._id;
                     restaurant.name = element.name;
                     restaurant.borough = element.borough;
                     restaurant.cuisine = element.cuisine;

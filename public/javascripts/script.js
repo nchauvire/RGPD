@@ -57,12 +57,26 @@
                             <td> ${restaurant.name} </td> 
                             <td> ${restaurant.borough} </td> 
                             <td> ${restaurant.cuisine} </td> 
+                            <td><button class="btn btn-xs btn-primary addComment" data-id="${restaurant._id}">Ajout commentaire</button></td>
                         </tr>`
                     });
                     $('#body').html(html);
                 });
             }
             
+        })
+    });
+})(jQuery);
+
+(function ($) {
+    $(document).ready(function() {
+
+        $('body ').on('click', '.addComment', function(){
+            console.log($(this).data('id'));
+
+            $('#ref').val($(this).data('id'))
+
+            $('#formNotation').toggle();
         })
     });
 })(jQuery);
