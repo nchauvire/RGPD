@@ -11,8 +11,24 @@ module.exports = class Restaurant {
     }
 
 
+  static findById(id, callback) {
+    MongoClient.connect('mongodb://localhost/rgpd', (err, client) => {
+      if (err) {
+        return console.log(err);
+      }
 
-    static searchByName(name, callback) {
+      let collection = client.db('rgpd').collection('restaurants');
+      let obj_id = new ObjectID.createFromHexString(id);
+
+      collection.findOne({_id: obj_id}, (err, item) => {
+        let restaurant = new Restaurant(item);
+        callback(restaurant);
+      });
+    });
+  }
+
+
+  static searchByName(name, callback) {
         MongoClient.connect('mongodb://localhost/rgpd', (err, client) => {
             if (err) {
                 return console.log(err);

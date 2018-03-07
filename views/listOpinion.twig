@@ -1,0 +1,36 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Les derniers avis</h3>
+      </div>
+    </div>
+    <hr/>
+
+    <div class="row">
+      <div class="col-md-12">
+        {% for comment in comments %}
+        <div class="media">
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object" src="/images/restaurant.jpg" alt="..." width="150">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{ comment.restaurant.name }}</h4>
+            <p>commentaire : {{ comment.message }}</p>
+            <p> note : {{ comment.rate }} / 5</p>
+            <p>par : {{ comment.user.username }} - posté: {{ comment.since }}</p>
+          </div>
+        </div>
+          <hr/>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+
+{% endblock %}

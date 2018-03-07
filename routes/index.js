@@ -188,6 +188,11 @@ router.get('/singin', (req, res, next) => {
     });
   });
 
+router.get('/listOpinion',(req, res, next)=>{
+  Comment.findAll({},(comments) => {
+    res.render('listOpinion',{title: 'liste de avis', comments:comments});
+  });
+});
 
 router.get('/drop', (req, res, next) => {
     res.render('drop', {title: 'Déposer un avis'})

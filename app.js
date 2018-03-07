@@ -43,6 +43,7 @@ app.use('/singin', index);
 app.use('/drop', index);
 app.use('/search', index);
 app.use('/comments/add', index);
+app.use('/listOpinion', index);
 
 
 // catch 404 and forward to error handler
