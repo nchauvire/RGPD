@@ -142,5 +142,9 @@ module.exports = class User {
             });
         });
     }
+
+    getUsername() {
+        return this.firstname +' '+ this.lastname.charAt(0).toUpperCase()
+    }
 }
 
