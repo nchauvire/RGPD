@@ -1,8 +1,11 @@
+
 let express = require('express'),
     router  = express.Router(),
     config  = require('../config.json'),
     crypto  = require('crypto'),
-    User    = require('../app/models/User');
+    User = require('../app/models/User'),
+    Restaurant = require('../app/models/Restaurant'),
+    url = require('url');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -88,7 +91,7 @@ router.post('/newPassword', (req, res, next) => {
 // ACCOUNT AND USER
 router.get('/account', (req, res, next) => {
   const session = req.session;
-  console.log("sesssion",session);
+
   if( session.user === undefined ){
     res.redirect('/');
   }
@@ -128,7 +131,7 @@ router.get('/account', (req, res, next) => {
 
     User.findById(session.user._id, function (user) {
       if (user !== undefined && user !== null) {
-        console.log("req.body",req.body);
+
         Object.assign(user, req.body);
         if(req.body.newsletter){
           user.newsletter = true;
@@ -183,5 +186,30 @@ router.get('/singin', (req, res, next) => {
       }
     });
   });
+
+
+router.get('/drop', (req, res, next) => {
+    res.render('drop', {title: 'Déposer un avis'})
+})
+
+router.get('/search', (req, res, next) => {
+    const url_parts = url.parse(req.url, true);
+    const query = url_parts.query;
+    const name = query.term;
+
+    Restaurant.searchByName(name, function(restaurants) {
+
+        if (restaurants) {
+             res.send(restaurants);
+            return;
+        }
+        res.send();
+    });
+
+
+
+
+});
+
 
 module.exports = router;

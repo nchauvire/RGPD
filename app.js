@@ -40,11 +40,12 @@ app.use('/create', index);
 app.use('/account', index);
 app.use('/editUser', index);
 app.use('/singin', index);
+app.use('/drop', index);
+app.use('/search', index);
 
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  console.log(req);
   let err = new Error('Not Found');
   err.status = 404;
   next(err);

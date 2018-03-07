@@ -32,3 +32,37 @@
 
 })(jQuery);
 
+(function ($) {
+    $(document).ready(function() {
+
+        $('#inputSearch').on('input', function(){
+
+            const value =  $('#inputSearch').val();
+
+
+
+
+
+            if (value.length >= 3) {
+                $.ajax({
+                    dataType: 'json',
+                    url: '/search?term='+value,
+                    method: "GET",
+                    timeout: 1500
+                }).done(function( response ) {
+                    let html = '';
+
+                    response.map((restaurant) => {
+                      html += `<tr> 
+                            <td> ${restaurant.name} </td> 
+                            <td> ${restaurant.borough} </td> 
+                            <td> ${restaurant.cuisine} </td> 
+                        </tr>`
+                    });
+                    $('#body').html(html);
+                });
+            }
+            
+        })
+    });
+})(jQuery);
