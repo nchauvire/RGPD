@@ -1,6 +1,8 @@
-let express = require('express');
-let router = express.Router();
-let User = require('../app/models/User');
+let express = require('express'),
+    router  = express.Router(),
+    config  = require('../config.json'),
+    crypto  = require('crypto'),
+    User    = require('../app/models/User');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -41,13 +43,47 @@ router.get('/subscribe', (req, res, next) => {
     });
   });
 
-router.get('/password', (req, res, next) => {
-    res.render('password', {title: 'Mot de passe oublier'});
+router.get('/resetPassword', (req, res, next) => {
+    res.render('resetPassword', {title: 'Mot de passe oublier'});
 });
-router.post('/password', (req, res, next) => {
-    alert('ici')
+router.post('/resetPassword', (req, res, next) => {
+    let email = req.body.email;
+
+    User.findByEmail(email, (user, err) => {
+        if (user !== undefined && user !== null) {
+            // Crypt email to securlly pass her in url
+            let cipher = crypto.createCipher('aes-256-cbc', config.password_secret);
+
+            email  = cipher.update(email, 'utf8', 'hex');
+            email += cipher.final('hex');
+
+            res.redirect('/newPassword?key='+encodeURIComponent(email));
+        }
+    });
 });
 
+router.get('/newPassword', (req, res, next) => {
+    let cryptedEmail = req.query.key,
+        decipher     = crypto.createDecipher('aes-256-cbc', config.password_secret),
+        email        = decipher.update(cryptedEmail, 'hex', 'utf8');
+
+    email += decipher.final('utf8');
+
+    res.render('newPassword', {title: 'Nouveau mot de passe', email: email});
+});
+router.post('/newPassword', (req, res, next) => {
+    let email = req.body.email;
+
+    User.findByEmail(email, (user, err) => {
+        if (user !== undefined && user !== null) {
+            user.password = req.body.password;
+            user.confirm  = req.body.confirm;
+            user.save();
+
+            res.redirect('/singin');
+        }
+    });
+});
 
 // ACCOUNT AND USER
 router.get('/account', (req, res, next) => {

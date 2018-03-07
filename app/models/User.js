@@ -125,5 +125,22 @@ module.exports = class User {
             });
         });
     }
+
+    static findByEmail(email, callback) {
+        MongoClient.connect('mongodb://localhost/rgpd', (err, client) => {
+            if (err) {
+                return console.log(err);
+            }
+
+            let collection = client.db('rgpd').collection('users')
+
+            collection.findOne({email: email}, (err, item) => {
+                console.log(item);
+                let user = new User(item);
+
+                callback(user);
+            });
+        });
+    }
 }
 
