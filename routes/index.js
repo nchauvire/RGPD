@@ -4,6 +4,7 @@ let express = require('express'),
     config  = require('../config.json'),
     crypto  = require('crypto'),
     User = require('../app/models/User'),
+    Comment = require('../app/models/Comment'),
     Restaurant = require('../app/models/Restaurant'),
     url = require('url');
 
@@ -205,11 +206,21 @@ router.get('/search', (req, res, next) => {
         }
         res.send();
     });
-
-
-
-
 });
 
+router.post('/comments/add', (req, res, next) => {
+    let session = req.session;
+
+    const comment = new Comment({
+        restaurantId: req.body.restaurant_id,
+        rate: req.body.rate,
+        message: req.body.message,
+        userId: session.user._id,
+    })
+
+    comment.save(function(comment) {
+        res.redirect('/listOpinion');
+    })
+});
 
 module.exports = router;

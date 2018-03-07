@@ -42,6 +42,7 @@ app.use('/editUser', index);
 app.use('/singin', index);
 app.use('/drop', index);
 app.use('/search', index);
+app.use('/comments/add', index);
 
 
 // catch 404 and forward to error handler

@@ -12,7 +12,6 @@
                        <div class="form-group">
                            <label for="">Rechercher un restaurant</label>
                            <input type="text" name="search" id="inputSearch" class="form-control">
-                           <input type="hidden" name="restaurant" id="ref">
                        </div>
                        <br>
                        <table class="table">
@@ -35,11 +34,11 @@
             <div class="col-offset-lg-2 col-lg-4">
                <div class="panel">
                    <div class="panel-body">
-                       <form id="formNotation" action="" class="form" style="display: none">
+                       <form id="formNotation" method="POST" action="/comments/add" class="form" style="display: none">
                            <h2>Ajouter une note</h2>
                            <div class="form-group">
                                <label for="">Note</label>
-                               <select name="note" class="form-control" id="">
+                               <select name="rate" class="form-control" id="">
                                    <option value="1">1</option>
                                    <option value="2">2</option>
                                    <option value="3">3</option>
@@ -49,8 +48,9 @@
                            </div>
                            <div class="form-group">
                                <label for="">Commentaire</label>
-                               <textarea name="comment" class="form-control"></textarea>
+                               <textarea name="message" class="form-control"></textarea>
                            </div>
+                           <input type="hidden" name="restaurant_id" id="ref">
                            <div class="form-group">
                                <button type="submit" class="btn btn-primary">Soumettre</button>
                            </div>
